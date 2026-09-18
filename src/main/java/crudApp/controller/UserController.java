@@ -13,47 +13,49 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/users")
-public class UserController  {
+public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) { this.userService = userService; }
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
-@GetMapping(value = "/get")// Обрабатывает GET-запрос /users и открывает страницу со списком пользователей.
-public String getAllUsers(ModelMap model) {
-    model.addAttribute("allUsers", userService.getAllUsers());
-    // Получаем список пользователей из Service и передаём его в Model, чтобы Thymeleaf мог использовать его на странице allUser.html.
-    return "allUser";
-}
+    @GetMapping(value = "/get")// Обрабатывает GET-запрос /users и открывает страницу со списком пользователей.
+    public String getAllUsers(ModelMap model) {
+        model.addAttribute("allUsers", userService.getAllUsers());
+        // Получаем список пользователей из Service и передаём его в Model, чтобы Thymeleaf мог использовать его на странице allUser.html.
+        return "allUser";
+    }
+
     @PostMapping(value = "/save")
     public String saveUser(
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
-            @RequestParam("age") byte age){
-        User newUser = new User(firstName,lastName,age);
+            @RequestParam("age") byte age) {
+        User newUser = new User(firstName, lastName, age);
         userService.saveUser(newUser);
         return "redirect:/users/get";
-}
+    }
+
     @PostMapping(value = "/update")
     public String updateUser(
-        @RequestParam("id") long id,
-        @RequestParam("firstName") String firstName,
-        @RequestParam("lastName") String lastName,
-        @RequestParam("age") byte age){
-        User mergeUser = new User(id,firstName,lastName,age);
+            @RequestParam("id") long id,
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("age") byte age) {
+        User mergeUser = new User(id, firstName, lastName, age);
         userService.updateUser(mergeUser);
         return "redirect:/users/get";
-}
-@PostMapping(value = "/delete")
+    }
+
+    @PostMapping(value = "/delete")
     public String removeUserById(
-            @RequestParam("id") long id){
+            @RequestParam("id") long id) {
         userService.removeUserById(id);
         return "redirect:/users/get";
-}
-
-
-
+    }
 
 
 }

@@ -1,6 +1,7 @@
 package crudApp.dao;
 
 import crudApp.model.User;
+
 import java.util.List;
 
 public interface UserDao {
@@ -12,7 +13,6 @@ public interface UserDao {
     void updateUser(User user);  // Update
 
     void removeUserById(long id); //Delete
-
 
 
 }
