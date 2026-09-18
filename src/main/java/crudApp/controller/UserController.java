@@ -21,7 +21,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @GetMapping(value = "/get")// Обрабатывает GET-запрос /users и открывает страницу со списком пользователей.
     public String getAllUsers(ModelMap model) {
         model.addAttribute("allUsers", userService.getAllUsers());
